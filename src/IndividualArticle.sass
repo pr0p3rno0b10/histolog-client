@@ -1,0 +1,59 @@
+@use 'helpers'
+@import 'constants'
+
+.bottom-section-individual-article
+	position: fixed
+	width: calc(100% - 10px)
+	height: 60px
+	background-color: $accent-color
+	border-radius: 10px
+	bottom: 5px
+	left: 5px
+
+.individual-article-text
+	display: inline-block
+	width: 100%
+	height: 550px
+	overflow-y: auto
+	padding: 10px
+
+.title-individual-article 
+	position: relative
+
+.bottom-section-container-individual-article
+	display: grid
+	position: absolute
+	height: 100%
+	width: 100%
+	grid-template-columns: 1fr 1fr
+	font-size: 1rem
+	@media only screen and (min-width: $tablet-width)
+		font-size: 1.2rem
+
+.author-text-individual-article
+	display: flex
+	align-items: center
+	justify-content: center
+	height: 100%
+
+.like-buttons-individual-article
+	display: flex
+	height: 80%
+	align-items: center
+	justify-content: space-around
+
+.like-button-individual-article
+	position: relative
+	span.material-icons
+		position: absolute
+		z-index: 1
+		&:hover
+			cursor: pointer
+
+.like-counter-individual-article
+	position: relative
+
+.like-number-individual-article
+	position: absolute
+	top: 0px
+	left: 30px

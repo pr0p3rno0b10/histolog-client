@@ -1,0 +1,64 @@
+@use 'helpers'
+@import 'constants'
+
+.bottom-section
+	position: fixed
+	width: 60%
+	height: 60px
+	background-color: $accent-color
+	border-radius: 10px
+	bottom: 5px
+	right: 5px
+
+.article-text-scroll
+	overflow-y: scroll
+	max-height: calc(100vh - 80px)
+	&::-webkit-scrollbar
+		display: none
+
+.article-text
+	display: inline-block
+	width: 100%
+	margin-top: 20px
+
+.title-article 
+	position: relative
+	margin: 5px 15px 0px
+
+.bottom-section-container
+	display: grid
+	position: absolute
+	height: 100%
+	width: 100%
+	grid-template-columns: 1fr 1fr
+	font-size: 1rem
+	@media only screen and (min-width: $tablet-width)
+		font-size: 1.2rem
+
+.author-text
+	display: flex
+	align-items: center
+	justify-content: center
+	height: 100%
+
+.like-buttons-article
+	display: flex
+	height: 80%
+	align-items: center
+	justify-content: space-around
+
+.like-button-article
+	position: relative
+	span.material-icons
+		position: absolute
+		z-index: 1
+		&:hover
+			cursor: pointer
+
+.like-counter-article
+	position: relative
+
+.like-number-article
+	position: absolute
+	top: 0px
+	left: 30px
