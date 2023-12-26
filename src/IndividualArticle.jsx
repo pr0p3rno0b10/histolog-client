@@ -24,7 +24,7 @@ const IndividualArticle = () => {
   return (
     <div>
       <h1 className="title">{currentArticle.articleName}</h1>
-      <div className="individual-article-text">{currentArticle.articleContent}</div>
+      <div className="individual-article-text" dangerouslySetInnerHTML={{ __html: currentArticle.articleContent }} />
       <div className="bottom-section-individual-article">
         <div className="bottom-section-container-individual-article">
           <div className="author-text-individual-article">Article by: {currentArticle.author}</div>
@@ -56,7 +56,7 @@ const IndividualArticle = () => {
                 </div>
               </div>
               <div>
-                <Link to={`/`}>
+                <Link to={`/articles/${articleID}`}>
                   <div className="like-button-individual-article">
                     <span 
                       className="material-icons"

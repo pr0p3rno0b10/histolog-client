@@ -75,7 +75,6 @@ const Home = () => {
     const articleName = article.articleName;
     const likes = article.likes;
     const dislikes = article.dislikes;
-    // article.id - 1 because I made a boo-boo and in the database id starts at 1
     return (
       <ArticleButton
         article={article}

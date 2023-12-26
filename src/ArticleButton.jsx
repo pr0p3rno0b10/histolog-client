@@ -1,23 +1,16 @@
 import React from 'react';
 import './ArticleButton.sass';
 
-const ArticleButton = (props) => {
+import { Link } from 'react-router-dom';
 
-
-  const dislikeButtonClicked = () => {
-    console.log("dislike button clicked");
-  }
+const ArticleButton = ({ article }) => {
+  const { id, articleName, likes, dislikes } = article;
 
   return (
-    <div>
-      <div 
-        className="article-button"
-        role='button' 
-        tabIndex='0'
-        onClick={props.articleOnClick}
-      >
+    <Link to={`/articles/${id}`} >
+      <div className="article-button">
         <div className="article-title-container">
-      	  <div className="article-title">{props.title}</div>
+      	  <div className="article-title">{articleName}</div>
         </div>
       </div>
       <div className="like-buttons">
@@ -26,7 +19,7 @@ const ArticleButton = (props) => {
             thumb_up
           </span>
           <div className="like-counter">
-            <div className="like-number">{props.likesCounter}</div>
+            <div className="like-number">{likes}</div>
           </div>
         </div>
         <div className="like-button">
@@ -34,11 +27,11 @@ const ArticleButton = (props) => {
             thumb_down
           </span>
           <div className="like-counter">
-            <div className="like-number">{props.dislikesCounter}</div>
+            <div className="like-number">{dislikes}</div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
