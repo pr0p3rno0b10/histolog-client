@@ -3,89 +3,123 @@ import './Article.sass';
 
 import { Link } from 'react-router-dom';
 
-// this class will eventually need to render images
 
-class Article extends React.Component {
-	constructor(props) {
-		super(props);
+const Article = ({setArticles, article}) => {
+	const { id, articleName, likes, dislikes, articleContent, author } = article;
 
-		this.state = {
-			
-		}
-	}
+	const likeButtonClicked = () => {
+		const articleCopy = {...article, likes: article.likes + 1}
+    fetch(`http:\/\/127.0.0.1:8000/api/articles/${article.id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(articleCopy)
+    })
+    .then(response => response.text())
+    .then(rawResponse => {
+      console.log('Raw response:', rawResponse);
+      return rawResponse;
+    })
+    .then(result => {
+      try {
+        const parsedResult = JSON.parse(result);
+        setArticles(articles => {
+        	const index = articles.findIndex(a => a.id === article.id);
+        	return [...articles.slice(0, index), articleCopy, ...articles.slice(index + 1)]
+        })
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
 
-	// needs function that converts json format into article
-	convertRawArticleToArticle() {
-		
-	}
+  const dislikeButtonClicked = () => {
+    const articleCopy = {...article, likes: article.dislikes + 1}
+    fetch(`http:\/\/127.0.0.1:8000/api/articles/${article.id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(articleCopy)
+    })
+    .then(response => response.text())
+    .then(rawResponse => {
+      console.log('Raw response:', rawResponse);
+      return rawResponse;
+    })
+    .then(result => {
+      try {
+        const parsedResult = JSON.parse(result);
+        setArticles(articles => {
+        	const index = articles.findIndex(a => a.id === article.id);
+        	return [...articles.slice(0, index), articleCopy, ...articles.slice(index + 1)]
+        })
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
 
-	render() {
-		const likeButtonClicked = () => {
-	    console.log("like button clicked");
-	  }
-
-	  const dislikeButtonClicked = () => {
-	    console.log("dislike button clicked");
-	  }
-	  console.log(this.props);
-
-		return (
-			<>
-				<h1 className="title">{this.props.title}</h1>
-				<div className="article-text-scroll">
-					<div className="article-text">{this.props.text}</div>
+	return (
+		<>
+			<h1 className="title">{articleName}</h1>
+			<div className="article-text-scroll">
+				<div className="article-text">{articleContent}</div>
+			</div>
+			<div className="bottom-section">
+				<div className="bottom-section-container">
+					<div className="author-text">Article by: {author}</div>
+					<div className="like-buttons-article">
+		        <div className="like-button-article">
+		          <span 
+		            className="material-icons"
+		            role='button' 
+		            tabIndex='0'
+		            onClick={likeButtonClicked}
+		          >
+		            thumb_up
+		          </span>
+		          <div className="like-counter-article">
+		            <div className="like-number-article">{likes}</div>
+		          </div>
+		        </div>
+		        <div className="like-button-article">
+		          <span 
+		            className="material-icons"
+		            role='button' 
+		            tabIndex='0'
+		            onClick={dislikeButtonClicked}
+		          >
+		            thumb_down
+		          </span>
+		          <div className="like-counter-article">
+		            <div className="like-number-article">{dislikes}</div>
+		          </div>
+		        </div>
+		        <div>
+			        <Link to={`/articles/${id}/fullscreen`}>
+				        <div className="like-button-article">
+				          <span 
+				            className="material-icons"
+				          >
+				            fullscreen
+				          </span>
+				          
+				        </div>
+				      </Link>
+				    </div>
+		      </div>
 				</div>
-				<div className="bottom-section">
-					<div className="bottom-section-container">
-						<div className="author-text">Article by: {this.props.author}</div>
-						<div className="like-buttons-article">
-			        <div className="like-button-article">
-			          <span 
-			            className="material-icons"
-			            role='button' 
-			            tabIndex='0'
-			            onClick={this.props.likeButtonOnClick}
-			          >
-			            thumb_up
-			          </span>
-			          <div className="like-counter-article">
-			            <div className="like-number-article">{this.props.likesCounter}</div>
-			          </div>
-			        </div>
-			        <div className="like-button-article">
-			          <span 
-			            className="material-icons"
-			            role='button' 
-			            tabIndex='0'
-			            onClick={this.props.dislikeButtonOnClick}
-			          >
-			            thumb_down
-			          </span>
-			          <div className="like-counter-article">
-			            <div className="like-number-article">{this.props.dislikesCounter}</div>
-			          </div>
-			        </div>
-			        <div>
-				        <Link to={`/articles/${this.props.id}/fullscreen`}>
-					        <div className="like-button-article">
-					          <span 
-					            className="material-icons"
-					            role='button' 
-					            tabIndex='0'
-					            onClick={this.fullScreenOnClick}
-					          >
-					            fullscreen
-					          </span>
-					          
-					        </div>
-					      </Link>
-					    </div>
-			      </div>
-					</div>
-				</div>
-			</>
-		);
-	}
+			</div>
+		</>
+	);
 }
 
 export default Article;
