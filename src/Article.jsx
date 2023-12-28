@@ -9,7 +9,7 @@ const Article = ({setArticles, article}) => {
 
 	const likeButtonClicked = () => {
 		const articleCopy = {...article, likes: article.likes + 1}
-    fetch(`http:\/\/127.0.0.1:8000/api/articles/${article.id}/`, {
+    fetch(process.env.REACT_APP_API_URI + `/articles/${article.id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -38,8 +38,8 @@ const Article = ({setArticles, article}) => {
   }
 
   const dislikeButtonClicked = () => {
-    const articleCopy = {...article, likes: article.dislikes + 1}
-    fetch(`http:\/\/127.0.0.1:8000/api/articles/${article.id}/`, {
+    const articleCopy = {...article, dislikes: article.dislikes + 1}
+    fetch(process.env.REACT_APP_API_URI +`/articles/${article.id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

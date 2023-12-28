@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react';
 
 import "./App.sass";
 
-import Home from "./Home";
 import IndividualArticle from "./IndividualArticle";
 import Article from "./Article";
 import Portal from "./Portal"
@@ -19,7 +18,7 @@ const App = () => {
   useEffect(() => {
     let isSubscribed = true;
     const fetchData = async () => {
-      const response = await fetch("http:\/\/127.0.0.1:8000/api/articles/", {method: "GET", mode: "cors"});
+      const response = await fetch(process.env.REACT_APP_API_URI + "/articles/", {method: "GET", mode: "cors"});
       const data = await response.json();
       if (isSubscribed) {
         setArticles(data);
