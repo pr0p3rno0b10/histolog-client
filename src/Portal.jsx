@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import Article from "./Article"
 
 import ArticleButton from './ArticleButton';
+import './Portal.sass';
 
 const Portal = ({ setArticles, articles }) => {
   const { articleID } = useParams();
-  const [currentArticle, setCurrentArticle] = useState(null)
+  const [currentArticle, setCurrentArticle] = useState(1)
   useEffect(() => {
     const index = articles.findIndex(article => article.id === +articleID)
     if (index >= 0) setCurrentArticle(articles[index])

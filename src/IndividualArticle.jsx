@@ -11,7 +11,7 @@ const IndividualArticle = () => {
   useEffect(() => {
     const getArticle = async () => {
       console.log(articleID);
-      const response = await fetch(`http:\/\/127.0.0.1:8000/api/articles/${articleID}/`, {method: "GET", mode: "cors"});
+      const response = await fetch(process.env.REACT_APP_API_URI + `/articles/${articleID}/`, {method: "GET", mode: "cors"});
       const data = await response.json();
 
       setCurrentArticle(data);
