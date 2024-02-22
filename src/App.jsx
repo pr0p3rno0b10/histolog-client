@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 
-
 import "./App.sass";
 
 import IndividualArticle from "./IndividualArticle";

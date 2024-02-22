@@ -4,68 +4,9 @@ import './Article.sass';
 import { Link } from 'react-router-dom';
 
 
-const Article = ({setArticles, article}) => {
+const Article = ({setArticles, article, likeButtonClicked, dislikeButtonClicked}) => {
 	const { id, articleName, likes, dislikes, articleContent, author } = article;
 
-	const likeButtonClicked = () => {
-		const articleCopy = {...article, likes: article.likes + 1}
-    fetch(process.env.REACT_APP_API_URI + `/articles/${article.id}/`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(articleCopy)
-    })
-    .then(response => response.text())
-    .then(rawResponse => {
-      console.log('Raw response:', rawResponse);
-      return rawResponse;
-    })
-    .then(result => {
-      try {
-        const parsedResult = JSON.parse(result);
-        setArticles(articles => {
-        	const index = articles.findIndex(a => a.id === article.id);
-        	return [...articles.slice(0, index), articleCopy, ...articles.slice(index + 1)]
-        })
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }
-
-  const dislikeButtonClicked = () => {
-    const articleCopy = {...article, dislikes: article.dislikes + 1}
-    fetch(process.env.REACT_APP_API_URI +`/articles/${article.id}/`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(articleCopy)
-    })
-    .then(response => response.text())
-    .then(rawResponse => {
-      console.log('Raw response:', rawResponse);
-      return rawResponse;
-    })
-    .then(result => {
-      try {
-        const parsedResult = JSON.parse(result);
-        setArticles(articles => {
-        	const index = articles.findIndex(a => a.id === article.id);
-        	return [...articles.slice(0, index), articleCopy, ...articles.slice(index + 1)]
-        })
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }
 
 	return (
 		<>
